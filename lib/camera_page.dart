@@ -75,11 +75,12 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      floatingActionButton: Container(
+        color: Colors.black,
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: <Widget>[
             IconButton(
               iconSize: 35,
               icon: Icon(
@@ -88,17 +89,31 @@ class _CameraPageState extends State<CameraPage> {
                       : CupertinoIcons.switch_camera_solid,
                   color: Colors.white),
               onPressed: () {
-                setState(() => _isRearCameraSelected = !_isRearCameraSelected);
-                initCamera(widget.cameras![_isRearCameraSelected ? 0 : 1]);
+                setState(
+                  () => _isRearCameraSelected = !_isRearCameraSelected,
+                );
+                initCamera(
+                  widget.cameras![_isRearCameraSelected ? 0 : 1],
+                );
               },
             ),
-            IconButton(
-              onPressed: takePicture,
-              iconSize: 50,
-              icon: const Icon(
-                Icons.circle,
-                color: Colors.white,
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                const Icon(
+                  Icons.panorama_fish_eye_rounded,
+                  color: Colors.white,
+                  size: 90,
+                ),
+                IconButton(
+                  onPressed: takePicture,
+                  iconSize: 65,
+                  icon: const Icon(
+                    Icons.circle,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               width: 50,
@@ -109,8 +124,41 @@ class _CameraPageState extends State<CameraPage> {
       backgroundColor: Colors.black,
       body: _cameraController.value.isInitialized
           ? SafeArea(
-              child: CameraPreview(
-                _cameraController,
+              child: Stack(
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: double.infinity,
+                    child: CameraPreview(
+                      _cameraController,
+                      child: Icon(
+                        Icons.crop_free_rounded,
+                        color: Colors.white.withOpacity(0.7),
+                        size: 400,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.black54,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.close_rounded,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             )
           : const Center(

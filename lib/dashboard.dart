@@ -65,6 +65,7 @@ class _DashboardState extends State<Dashboard> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: photo == null ? Colors.white : Colors.black,
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -106,9 +107,17 @@ class _DashboardState extends State<Dashboard> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await findAvailableCameras().then(
-            (_) => openCameraPage(),
-          );
+          await findAvailableCameras().then((_) {
+            if (cameras!.isEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('No cameras available!'),
+                ),
+              );
+            } else {
+              openCameraPage();
+            }
+          });
         },
         tooltip: 'Open Camera',
         child: const Icon(Icons.photo_camera_rounded),
