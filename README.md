@@ -2,15 +2,6 @@
 
  An app that allows users to take a photo which then returns an image in black & white. Created in Flutter.
 
-## Getting Started
+## Demo
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![RPReplay_Final1712154289-ezgif com-optimize](https://github.com/saif-shikdar/flutter-photo-manipulator-app/assets/43826661/05e8c72b-e64d-4723-891e-f9754bc539f8)
